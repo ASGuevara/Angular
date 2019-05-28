@@ -1,0 +1,77 @@
+<h2>Choose the heroes</h2>
+<br/>
+
+<div class="row">
+  <div class="col-6">
+    <h4>First Hero :</h4>
+    <select [(ngModel)]="hero1Id" (change)="onChange(1)">
+      <option *ngFor="let h of heroes" value="{{h.id}}" >
+        {{h.name}}
+      </option>
+    </select>
+  </div>
+  <div class="col-6">
+    <h4>Second Hero :</h4>
+    <select [(ngModel)]="hero2Id" (change)="onChange(2)">
+      <option *ngFor="let h2 of heroes" value="{{h2.id}}" >
+        {{h2.name}}
+      </option>
+    </select>
+  </div>
+
+</div>
+<hr>
+<div class="row">
+  <div class="col-2">
+    <div *ngIf="hero1">
+      <p>{{hero1.name}} armé(e) de {{weapon1.name}}</p><br>
+      <img src="{{hero1.look}}" class="hero-style-fight ">
+    </div>
+  </div>
+  <div class="col-3">
+    <div *ngIf="hero1">
+      <i class="fas fa-heart"></i> {{hero1._PV}}
+      <span class="{{weapon1._PV >= 0 ? 'bonus' : 'malus' }}">{{weapon1._PV >= 0 ? "+" : "" }}{{weapon1._PV}}</span>
+       => {{weapon1._PV + hero1._PV}}<br>
+      <i class="fas fa-bomb"></i> {{hero1._attaque}}
+      <span class="{{weapon1._attaque >= 0 ? 'bonus' : 'malus' }}">{{weapon1._attaque >= 0 ? "+" : "" }}{{weapon1._attaque}}</span>
+      => {{weapon1._attaque + hero1._attaque}}<br>
+      <i class="fas fa-heart-broken"></i> {{hero1._degats}}
+      <span class="{{weapon1._degats >= 0 ? 'bonus' : 'malus' }}">{{weapon1._degats >= 0 ? "+" : "" }}{{weapon1._degats}}</span>
+      => {{weapon1._degats + hero1._degats}}<br>
+      <i class="fas fa-shield-alt"></i> {{hero1._esquive}}
+      <span class="{{weapon1._esquive >= 0 ? 'bonus' : 'malus' }}">{{weapon1._esquive >= 0 ? "+" : "" }}{{weapon1._esquive}}</span>
+      => {{weapon1._esquive + hero1._esquive}}<br><br>
+    </div>
+  </div>
+  <div class="col-2">
+    <h1>VS</h1>
+  </div>
+  <div class="col-2">
+    <div *ngIf="hero2">
+      <p>{{hero2.name}} armé(e) de {{weapon2.name}}</p><br>
+      <img src="{{hero2.look}}" class="hero-style-fight ">
+    </div>
+  </div>
+  <div class="col-3">
+    <div *ngIf="hero2">
+      <i class="fas fa-heart"></i> {{hero2._PV}}
+      <span class="{{weapon2._PV >= 0 ? 'bonus' : 'malus' }}">{{weapon2._PV >= 0 ? "+" : "" }}{{weapon2._PV}}</span>
+      => {{weapon2._PV + hero2._PV}}<br>
+      <i class="fas fa-bomb"></i> {{hero2._attaque}}
+      <span class="{{weapon2._attaque >= 0 ? 'bonus' : 'malus' }}">{{weapon2._attaque >= 0 ? "+" : "" }}{{weapon2._attaque}}</span>
+      => {{weapon2._attaque + hero2._attaque}}<br>
+      <i class="fas fa-heart-broken"></i> {{hero2._degats}}
+      <span class="{{weapon2._degats >= 0 ? 'bonus' : 'malus' }}">{{weapon2._degats >= 0 ? "+" : "" }}{{weapon2._degats}}</span>
+      => {{weapon2._degats + hero2._degats}}<br>
+      <i class="fas fa-shield-alt"></i> {{hero2._esquive}}
+      <span class="{{weapon2._esquive >= 0 ? 'bonus' : 'malus' }}">{{weapon2._esquive >= 0 ? "+" : "" }}{{weapon2._esquive}}</span>
+      => {{weapon2._esquive + hero2._esquive}}
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="hero1 && hero2">
+  <button class="btn btn-primary" routerLink="/fight/{{hero1.id}}/vs/{{hero2.id}}">Fight !</button>
+</div>
+
+

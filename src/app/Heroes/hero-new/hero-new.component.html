@@ -1,0 +1,79 @@
+<div class="row" *ngIf="hero && weapons && weapon">
+
+  <div class="col-6">
+    <h2>{{hero.name | uppercase}} Details</h2>
+     <div>
+      <label>name:
+        <input [(ngModel)]="hero.name" placeholder="name"/>
+      </label>
+      <br>
+      <h3>Total:{{hero.getTotal()}} /40</h3>
+
+      <table>
+        <caption>Stats</caption>
+        <thead>
+        <th></th>
+        <th>Sans arme</th>
+        <th></th>
+        <th>Avec arme {{weapon.name}}</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td><i class="fas fa-bomb"></i> Attaque:</td>
+          <td><input [(ngModel)]="hero._attaque" type="number" placeholder="attaque" min="1"/></td>
+          <!--si l'attaque de l'arme est supperieure à 0, on mettra un +vert, sinon un moins rouge-->
+          <td class="{{weapon._attaque >= 0 ? 'bonus' : 'malus' }}">{{weapon._attaque >= 0 ? "+" : "" }}{{weapon._attaque}}</td>
+          <!--On verifie que l'adition de l'attaque de l'héro et de son arme n'est pas une erreur avant de l'afficher sinon on aura NAN-->
+          <td> => {{weapon._attaque + hero._attaque ? weapon._attaque + hero._attaque : 0}}</td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-heart-broken"></i> Dégâts:</td>
+          <td><input [(ngModel)]="hero._degats" type="number"  placeholder="degats" min="1"/></td>
+          <td class="{{weapon._degats >= 0 ? 'bonus' : 'malus' }}">{{weapon._degats >= 0 ? "+" : "" }}{{weapon._degats}} </td>
+          <td>=> {{weapon._degats + hero._degats ? weapon._degats + hero._degats : 0}}</td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-heart"></i> PV:</td>
+          <td><input [(ngModel)]="hero._PV" type="number" placeholder="PV" min="1" value="1"/></td>
+          <td class="{{weapon._PV >= 0 ? 'bonus' : 'malus' }}">{{weapon._PV >= 0 ? "+" : "" }}{{weapon._PV}}</td>
+          <td> => {{weapon._PV + hero._PV ? weapon._PV + hero._PV : 0}}</td>
+        </tr>
+        <tr>
+          <td> <i class="fas fa-shield-alt"></i>Esquive: </td>
+          <td><input [(ngModel)]="hero._esquive" type="number" placeholder="esquive" min="1" value="1"/></td>
+          <td class="{{weapon._esquive >= 0 ? 'bonus' : 'malus' }}">{{weapon._esquive >= 0 ? "+" : "" }}{{weapon._esquive}}</td>
+          <td> => {{weapon._esquive + hero._esquive ? weapon._esquive + hero._esquive : 0}} </td>
+        </tr>
+        </tbody>
+
+      </table>
+      <br><br>
+
+      <label>
+        Weapon :
+        <select [(ngModel)]="hero.idWeapon" (change)="onChange()">
+          <option *ngFor="let weap of weapons" value="{{weap.id}}" >
+            {{weap.name}}
+          </option>
+        </select>
+      </label>
+    </div>
+    <br><br>
+
+    <div *ngIf="getMessageError()">{{getMessageError()}}</div>
+
+    <br><br>
+    <button (click)="goBack()">Go back</button>
+    <button (click)="saveHero()">Save Hero</button>
+  </div>
+  <div class="col-6">
+    <br><br>
+    <br><br>
+    Choisisez son look : <br>
+    <a (click)="getImg('prev')" class="prevornext"><i class="fas fa-chevron-left" ></i></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a (click)="getImg('next')" class="prevornext"><i class="fas fa-chevron-right" ></i></a>
+    <br><br>
+    <img src="{{hero.look}}" class="hero-style">
+  </div>
+</div>

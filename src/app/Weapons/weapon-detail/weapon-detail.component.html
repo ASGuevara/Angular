@@ -1,0 +1,36 @@
+<div *ngIf="weapon">
+
+  <h2>{{weapon.name | uppercase}} Details !</h2>
+  <div>
+    <br>
+    <h2>Total : {{weapon.getTotal()}} </h2>
+    <br>
+    <label> Name:
+      <input [(ngModel)]="weapon.name" placeholder="name"/>
+    </label>
+    <br>
+    <label><i class="fas fa-bomb"></i> Attaque:
+      <input [(ngModel)]="weapon._attaque" type="number" placeholder="attaque" min="-5" max="5"/>
+    </label>
+    <br><br>
+    <label><i class="fas fa-heart-broken"></i> Dégâts:
+      <input [(ngModel)]="weapon._degats" type="number"  placeholder="degats" min="-5" max="5"/>
+    </label>
+    <br><br>
+    <label><i class="fas fa-shield-alt"></i> Esquive:
+      <input [(ngModel)]="weapon._esquive" type="number"  placeholder="esquive" min="-5" max="5"/>
+    </label>
+    <br><br>
+    <label><i class="fas fa-heart"></i> PV:
+      <input [(ngModel)]="weapon._PV" type="number" placeholder="PV" min="-5" max="5"/>
+    </label>
+    <br>
+    <div *ngIf="getMessageError()">{{getMessageError()}}</div><br>
+  </div>
+
+</div>
+
+<br><br>
+<button (click)="goBack()">Go back</button>
+<button (click)="updateWeapon()">Save Weapon</button>
+

@@ -1,1 +1,83 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 20px 300px 30px 300px;
+}
+
+.btn {
+  padding: 4px;
+  border: 1px solid #607d8b;
+  color: antiquewhite;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #039be5;
+  border-radius: 3px;
+}
+
+.bonus {
+  color:green;
+}
+
+.malus {
+  color:red;
+}
+
+/* Listes d'heroes ou weapons*/
+.list {
+  width: 500px;
+  margin: 30px;
+}
+
+.delete {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.delete:hover {
+  color: #888;
+}
+
+
+.hero-style {
+  width: 200px;
+}
+.hero-style-fight {
+  height: 200px;
+}
+
+.prevornext {
+  cursor: pointer;
+}
+.prevornext:hover {
+  color:#999999;
+}
+
+.dasboard {
+  width: 100%;
+}
+
+.actions {
+  padding: 5px;
+  border: solid 2px #039be5;
+  height: 100px;
+  border-radius: 7px;
+  background-color: aliceblue;
+}
+
+.face {
+  width: 40px;
+}
+
+.couronne {
+  width: 100px;
+}
+
+.explications {
+  font-size: 10px;
+}
+
+.statshero {
+  height: 100px;
+}
+progress {
+  margin-top: 5px;
+}

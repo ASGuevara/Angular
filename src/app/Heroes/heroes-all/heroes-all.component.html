@@ -1,0 +1,38 @@
+<h2>My Heroes</h2>
+<br/>
+<a class="btn btn-primary" routerLink="/new/hero">New Hero</a>
+<br/><br/>
+<input [(ngModel)]="value" type="text" placeholder="Search a hero"/>
+<button (click)="searchByName()">Search</button>
+<br/><br/>
+Trier par :
+<button (click)="sortBy('PV')">PV</button> &nbsp;
+<button (click)="sortBy('attaque')">Attaque</button> &nbsp;
+<button (click)="sortBy('degats')">Dégâts</button> &nbsp;
+<button (click)="sortBy('esquive')">Esquive</button> &nbsp;
+<button (click)="sortBy('total')">Total</button> &nbsp;
+
+<br/><br/>
+
+<table class="list">
+  <tr *ngFor="let hero of heroesFiltred">
+    <td>
+      <a class="list-group-item list-group-item-action" routerLink="/detail/{{hero.id}}">
+          <span class="badge">
+            <i class="fas fa-heart"></i> {{hero._PV}}
+            <i class="fas fa-bomb"></i> {{hero._attaque}}
+            <i class="fas fa-heart-broken"></i> {{hero._degats}}
+            <i class="fas fa-shield-alt"></i> {{hero._esquive}}
+          </span> {{hero.name}}
+      </a>
+    </td>
+    <td><i class="fas fa-trash delete" (click)="delete(hero.id)"></i></td>
+  </tr>
+
+
+</table>
+
+<br/><br/><br/>
+
+
+

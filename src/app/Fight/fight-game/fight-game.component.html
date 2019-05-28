@@ -1,0 +1,121 @@
+<div *ngIf="hero1 && hero2">
+  <h2  style="text-align: center">FIGHT !</h2>
+  <br/>
+
+  <div class="row">
+    <div class="col-2" style="text-align: center">
+      <!-- Si le joueur 2 n'a plus de pv, le joueur un a gagné-->
+      <div *ngIf="hero2._PV+weapon2._PV <= 0">
+        <img src="assets/img/couronne.JPG" class="couronne">
+      </div>
+      <p>{{hero1.name}} armé(e) de {{weapon1.name}}</p><br>
+      <img src="{{hero1.look}}" class="hero-style-fight ">
+      <br>
+      <!-- Stats du joueur 1n-->
+      <i class="fas fa-heart"></i> {{hero1._PV}}
+      <span class="{{weapon1._PV >= 0 ? 'bonus' : 'malus' }}">{{weapon1._PV >= 0 ? "+" : "" }}{{weapon1._PV}}</span>
+      => {{weapon1._PV + hero1._PV}}<br>
+      <i class="fas fa-bomb"></i> {{hero1._attaque}}
+      <span class="{{weapon1._attaque >= 0 ? 'bonus' : 'malus' }}">{{weapon1._attaque >= 0 ? "+" : "" }}{{weapon1._attaque}}</span>
+      => {{weapon1._attaque + hero1._attaque}}<br>
+      <i class="fas fa-heart-broken"></i> {{hero1._degats}}
+      <span class="{{weapon1._degats >= 0 ? 'bonus' : 'malus' }}">{{weapon1._degats >= 0 ? "+" : "" }}{{weapon1._degats}}</span>
+      => {{weapon1._degats + hero1._degats}}<br>
+      <i class="fas fa-shield-alt"></i> {{hero1._esquive}}
+      <span class="{{weapon1._esquive >= 0 ? 'bonus' : 'malus' }}">{{weapon1._esquive >= 0 ? "+" : "" }}{{weapon1._esquive}}</span>
+      => {{weapon1._esquive + hero1._esquive}}
+
+    </div>
+    <!-- Detail de l'action du joueur 1 -->
+    <div class="col-3"style="text-align: center">
+      <div class="actions">{{hero1action}}</div><br>
+      <!-- Le dé du joueur 1-->
+      <div class="statshero">
+        <img *ngIf="deHero1" src="assets/img/face{{deHero1}}.jpg" class="face"> &nbsp;&nbsp;
+        <br>
+        <p *ngIf="tourNumber%2 != 0 && attaque">{{hero1._attaque+weapon1._attaque}}+2<sup>{{deHero1}}</sup> = {{attaque}}</p>
+        <p *ngIf="tourNumber%2 == 0 && esquive">{{hero1._esquive+weapon1._esquive}}+2<sup>{{deHero1}}</sup> = {{esquive}}</p>
+        <br><br>
+      </div>
+      <!-- au tour pair, le joueur 1 peux jouer-->
+      <div *ngIf="!fin">
+        <button class="btn btn-primary" (click)="attaquer(1)" [disabled]="tourNumber%2 != 0">Attaquer</button>&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="sesoigner(1)" [disabled]="tourNumber%2 != 0">Se soigner</button><br><br>
+        <button *ngIf="hero1.idWeapon" class="btn btn-primary" (click)="dropweapon(1)" [disabled]="tourNumber%2 != 0">Jeter son arme</button>
+      </div>
+    </div>
+
+    <div class="col-2" style="text-align: center">
+      <h1>VS</h1>
+      <div *ngIf="tourNumber%2 != 0 && this.attaque && this.esquive">
+          Attaque     //      Esquive <br>
+        {{attaque}} {{attaque > esquive ? ">" : "<" }}  {{esquive}}
+      </div>
+      <div *ngIf="tourNumber%2 == 0 && tourNumber!=0 && this.attaque && this.esquive">
+        Esquive     //      Attaque <br>
+        {{esquive}} {{esquive >= attaque ? ">" : "<" }} {{attaque}}
+      </div>
+      <div *ngIf="degats">
+        <br>
+        <!-- Progress bar affichant les degats affligés-->
+        Dégats<br>
+        <div *ngIf="tourNumber%2 != 0 ">{{(degats*100/(this.hero1._degats+this.weapon1._degats)).toFixed(0)}}%
+          <div style="display: flex;">
+            0 <progress value="{{degats}}" max="{{hero1._degats+weapon1._degats}}"></progress> {{hero1._degats+weapon1._degats}}
+          </div>
+        </div>
+        <div *ngIf="tourNumber%2 == 0 ">{{(degats*100/(this.hero2._degats+this.weapon2._degats)).toFixed(0)}}%
+          <div style="display: flex;">
+            0 <progress value="{{degats}}" max="{{hero2._degats+weapon2._degats}}"></progress> {{hero2._degats+weapon2._degats}}
+          </div>
+        </div>
+      </div>
+      <br><br>
+
+    </div>
+
+    <div class="col-3 " style="text-align: center">
+      <div class="actions">{{hero2action}}</div><br>
+      <!-- Dé du joueur 2-->
+      <div class="statshero">
+        <img *ngIf="deHero2" src="assets/img/face{{deHero2}}.jpg" class="face">
+        <br>
+        <p *ngIf="tourNumber%2 == 0 && attaque">{{hero2._attaque+weapon2._attaque}}+2<sup>{{deHero2}}</sup> = {{attaque}}</p>
+        <p *ngIf="tourNumber%2 != 0 && esquive">{{hero2._esquive+weapon2._esquive}}+2<sup>{{deHero2}}</sup> = {{esquive}}</p>
+        <br><br>
+      </div>
+      <!-- A son tour, le joueur peux jouer -->
+      <div *ngIf="!fin">
+        <button class="btn btn-primary" (click)="attaquer(2)"  [disabled]="tourNumber%2 == 0">Attaquer</button>&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="sesoigner(2)" [disabled]="tourNumber%2 == 0">Se soigner</button><br><br>
+        <button *ngIf="hero2.idWeapon" class="btn btn-primary" (click)="dropweapon(2)" [disabled]="tourNumber%2 == 0">Jeter son arme</button>
+      </div>
+    </div>
+
+    <div class="col-2" style="text-align: center">
+      <div *ngIf="hero1._PV+weapon1._PV <= 0">
+        <img src="assets/img/couronne.JPG" class="couronne">
+      </div>
+
+      <p>{{hero2.name}} armé(e) de {{weapon2.name}}</p><br>
+      <img src="{{hero2.look}}" class="hero-style-fight ">
+      <br>
+      <!-- Stats du joueur 2 -->
+      <i class="fas fa-heart"></i> {{hero2._PV}}
+      <span class="{{weapon2._PV >= 0 ? 'bonus' : 'malus' }}">{{weapon2._PV >= 0 ? "+" : "" }}{{weapon2._PV}}</span>
+      => {{weapon2._PV + hero2._PV}}<br>
+      <i class="fas fa-bomb"></i> {{hero2._attaque}}
+      <span class="{{weapon2._attaque >= 0 ? 'bonus' : 'malus' }}">{{weapon2._attaque >= 0 ? "+" : "" }}{{weapon2._attaque}}</span>
+      => {{weapon2._attaque + hero2._attaque}}<br>
+      <i class="fas fa-heart-broken"></i> {{hero2._degats}}
+      <span class="{{weapon2._degats >= 0 ? 'bonus' : 'malus' }}">{{weapon2._degats >= 0 ? "+" : "" }}{{weapon2._degats}}</span>
+      => {{weapon2._degats + hero2._degats}}<br>
+      <i class="fas fa-shield-alt"></i> {{hero2._esquive}}
+      <span class="{{weapon2._esquive >= 0 ? 'bonus' : 'malus' }}">{{weapon2._esquive >= 0 ? "+" : "" }}{{weapon2._esquive}}</span>
+      => {{weapon2._esquive + hero2._esquive}}
+
+
+    </div>
+  </div>
+
+</div>

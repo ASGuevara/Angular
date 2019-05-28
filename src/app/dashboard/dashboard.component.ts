@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../heroes';
+import { Hero } from '../data/hero';
 import { HeroService } from '../Service/hero.service';
+
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,16 +12,19 @@ import { HeroService } from '../Service/hero.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService) { }
+  heroes: Observable<Hero[]>;
+
+
+  constructor(private heroService: HeroService) {
+  }
 
   ngOnInit() {
     this.getHeroes();
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+    this.heroes = this.heroService.getHeroesTop3();
   }
 }
+

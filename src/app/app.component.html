@@ -1,12 +1,14 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div style="text-align:center;">
   <h1>
-    Welcome to {{ title }}!
+    {{ title }}
   </h1>
 </div>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/heroes">Heroes</a>
+<nav style="text-align:center;">
+  <a routerLink="/dashboard">Hall of fame</a>&nbsp;
+  <a routerLink="/heroes">Heroes</a>&nbsp;
+  <a routerLink="/weapon">Weapon</a>&nbsp;
+  <a routerLink="/fight/select">Fight</a>&nbsp;
+
 </nav>
+<br><br>
 <router-outlet></router-outlet>
-<app-messages></app-messages>
